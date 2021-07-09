@@ -4,10 +4,102 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./style.css">    
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <title>Document</title>
 </head>
 <body>
-    KODUNUZU BURAYA YAZABILIRSINIZ
-    <script src="index.js"></script>
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class=" col-lg-6 col-md-8">
+                <div class="card p-3">
+                    <div class="row justify-content-center">
+                        <div class="col-12">
+                            <h2 class="heading text-center">EFT UYGULAMASI</h2>
+                        </div>
+                    </div>
+                    <form onsubmit="event.preventDefault()" class="form-card">
+                        <div class="row justify-content-center mb-4 radio-group">
+                            <div class="col-sm-3 col-5">
+                                <div class='radio selected mx-auto' data-value="dk"> <img class="fit-image" src="https://i.imgur.com/5TqiRQV.jpg" width="105px" height="55px"> </div>
+                            </div>
+                            <div class="col-sm-3 col-5">
+                                <div class='radio mx-auto' data-value="visa"> <img class="fit-image" src="https://i.imgur.com/OdxcctP.jpg" width="105px" height="55px"> </div>
+                            </div>
+                            <div class="col-sm-3 col-5">
+                                <div class='radio mx-auto' data-value="master"> <img class="fit-image" src="https://i.imgur.com/WIAP9Ku.jpg" width="105px" height="55px"> </div>
+                            </div>
+                            <div class="col-sm-3 col-5">
+                                <div class='radio mx-auto' data-value="paypal"> <img class="fit-image" src="https://i.imgur.com/cMk1MtK.jpg" width="105px" height="55px"> </div>
+                            </div> <br>
+                        </div>
+                       
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <label>İşlem Yapmak İstediğiniz Hesap:</label>
+                                <div class="input-group" style="height: 50px;width: 133%;">                                                         
+                                  
+                                  <select id="selectSrcAccount" class="w-75 rounded" onchange="selectAccount()">
+                                    <option value="0">Para gönderecek hesabı seçiniz</option> 
+                                    <option id="account1" value="1">s</option>
+                                    <option id="account2" value="2">a</option>
+                                    <option id="account3" value="3">c</option>
+                                  </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                <label>Para Gönderilecek IBAN'ı giriniz:</label>
+                                <div class="input-group"> <input type="text" id="getDestAccount" name="card-no" placeholder="0000 0000 0000 0000" minlength="16" maxlength="16">
+                                     <label>Cart Numarası </label> 
+                                    </div>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-12">
+                                
+                                    <label>Gönderilecek Tutarı Giriniz:</label>
+                                    <input type="number" id="SendMoney" min="0" max="" onchange="checkBalanceAmount(this)">
+                               
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12"> <input type="submit" value="Gönder" id="jsbutton" class="btn btn-pay placeicon"> </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-12">  Kalan süre: <span id="time"></span> </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="jsModal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Telefonunuza gelen şifreyi girin</h4>
+            </div>
+            <div class="modal-body">
+                <input id="jsNumber" type="number" min="1000" max="9999" maxlength="4" size="4" pattern="[1-9][0-9]{3}"/>
+            </div>
+            <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            <button id="jsPswrdSubmit" type="button" class="btn btn-primary">Gönder</button>
+            </div>
+        </div>
+        </div>
+  </div>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
+   
+    <script src="./index.js"></script>
 </body>
 </html>
