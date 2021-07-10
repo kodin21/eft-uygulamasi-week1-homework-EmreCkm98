@@ -38,6 +38,61 @@ window.onload=function(){
     },timer);
 };
 
+let getTimeout = (() => { // IIFE
+    let _setTimeout = setTimeout, // Reference to the original setTimeout
+        map = {}; // Map of all timeouts with their end times
+
+    setTimeout = (callback, delay) => { // Modify setTimeout
+        let id = _setTimeout(callback, delay); // Run the original, and store the id
+        map[id] = Date.now() + delay; // Store the end time
+        return id; // Return the id
+    };
+
+    return (id) => { // The actual getTimeout function
+        // If there was no timeout with that id, return NaN, otherwise, return the time left clamped to 0
+        return map[id] ? Math.max(map[id] - Date.now(), 0) : NaN;
+    }
+})();
+
+// go home in 4 seconds
+let redirectTimeout = setTimeout(() => {
+    
+}, timer);
+
+let check=true;
+let checkLast=true;
+// display the time left until the redirect
+setInterval(() => {
+    let time=getTimeout(redirectTimeout).toString();
+    time=time.slice(0,3);
+   
+    if(parseInt(time)>121 || check==false)
+    {
+        
+        if(parseInt(time)<=999 && parseInt(time)>99)
+        {
+            time=getTimeout(redirectTimeout).toString();
+            time=time.slice(0,2);
+            console.log(time);
+            check=false;           
+            if(parseInt(time)==10)
+                {
+                    checkLast==false;
+                }
+           
+        }
+       
+        if(parseInt(time)<=99 && checkLast==false)
+            {           
+                check=false;
+                time=getTimeout(redirectTimeout).toString();
+                time=time.slice(0,1);
+            }
+       
+    }
+    
+    document.querySelector("#time").innerHTML = `${time}`;
+},1);
 
 
 const getAccountInDropDwn=()=>{
@@ -159,22 +214,21 @@ function checkValidInput() {//4 haneli sayı kontrolü input için
 
 checkValidInput();
 
-const selectAccount=()=>{
-    console.log('You selected: ',getSrcAccountDropDwn.options[getSrcAccountDropDwn.selectedIndex].text );
-};
-
-getSrcAccountDropDwn.addEventListener('change',()=>{
+ 
+ 
+var checkBoth = function (event) {
     
-    if(getSrcAccountDropDwn.value!=0){
+    if(getSrcAccountDropDwn.value!=0 && getDestAccountTBox.value!=""){
+        
         getButton.disabled=false;
-     }
-    /*  getDestAccountTBox.addEventListener('change',()=>{
-        if(getDestAccountTBox.value!==""){
-            getButton.disabled=false;
-         }
-     }); */
-});
+       
+    }
 
+};
+window.addEventListener('change',checkBoth,false)
+{
+
+}
 
 getAccountInDropDwn();
 
